@@ -20,10 +20,10 @@ function ToDoList(props) {
                                     <span><button onClick={() => props.setCompleted(item.id)}>{statCompleted}</button></span>
                                 </div>
                                 <div className="center">
-                                    <p>{item.task}</p>
+                                    <p>{item.task + ` ` + item.id}</p>
                                 </div>
                                 <div className="right">
-                                    <ToDoButton />
+                                    <ToDoButton id = {item.id} hapusId = {props.hapusId}/>
                                 </div>
                             </li>
                         )

@@ -1,19 +1,24 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './App.css'
 import Form from './component/Form'
 import ToDoList from './component/ToDoList'
 
 function App() {
   const newTask = useRef('');
-  const [tasks, setTask] = useState([]);
+  const STORAGE = 'To-Do-List App'
+
+  const [tasks, setTask] = useState(() => {
+    return JSON.parse(localStorage.getItem(STORAGE)) || []
+  });
+  useEffect(() => {
+    localStorage.setItem(STORAGE, JSON.stringify(tasks));
+  }, [tasks])
 
 
 
   function addTask(event) {
-    function setId() {
-      const jumlahTasks = tasks.length;
-      return 1 + jumlahTasks
-    }
+
+
     event.preventDefault();
 
     if (newTask.current.value == '') {
@@ -21,11 +26,20 @@ function App() {
       return false
     }
 
+    function setId() {
+      if (tasks == '') {
+        return 1;
+      } else {
+        return tasks[0].id + 1
+      }
+    }
+
     const data = {
       id: setId(),
       task: newTask.current.value,
       completed: false
     }
+
     newTask.current.value = '';
     setTask([...tasks, data]);
   }
@@ -47,10 +61,15 @@ function App() {
     console.log(tasks);
   }
 
+  function hapusId(id) {
+    if (window.confirm(`Data Akan Dengan Id ${id} akan di hapus, Yakin?`)) {
+      setTask(tasks.filter((item) => item.id != id))
+    }
+  }
   return (
     <>
       <Form addTask={addTask} newTask={newTask} />
-      <ToDoList tasks={tasks} setCompleted={setCompleted} />
+      <ToDoList tasks={tasks} setCompleted={setCompleted} hapusId={hapusId} />
     </>
   )
 }

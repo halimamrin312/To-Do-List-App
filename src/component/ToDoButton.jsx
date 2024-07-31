@@ -1,9 +1,8 @@
-function ToDoButton() {
+function ToDoButton(props) {
+    let id = props.id;
     return (
         <>
-            <span><button>👆</button></span>
-            <span><button>👇</button></span>
-            <span><button>🚽</button></span>
+            <span><button onClick={()=>props.hapusId(id)}>🚽</button></span>
         </>
     )
 }
