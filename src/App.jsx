@@ -48,11 +48,7 @@ function App() {
     let taskItem = []
     tasks.map((item, index) => {
       if (item.id == id) {
-        if (item.completed) {
-          taskItem[index] = item
-        } else {
-          taskItem[index] = { ...item, completed: !item.completed }
-        }
+        taskItem[index] = { ...item, completed: !item.completed }
       } else {
         taskItem[index] = item
       }
@@ -68,8 +64,10 @@ function App() {
   }
   return (
     <>
-      <Form addTask={addTask} newTask={newTask} />
-      <ToDoList tasks={tasks} setCompleted={setCompleted} hapusId={hapusId} />
+      <div className="container">
+        <Form addTask={addTask} newTask={newTask} />
+        <ToDoList tasks={tasks} setCompleted={setCompleted} hapusId={hapusId} />
+      </div>
     </>
   )
 }

@@ -4,33 +4,37 @@ function ToDoList(props) {
     props.tasks.sort((a, b) => (b.id - a.id))
     return (
 
-        <div className="wrapper">
-            <div className="todowrapper">
-                <ul>
-                    {props.tasks.map((item) => {
-                        let statCompleted = ''
-                        if (item.completed) {
-                            statCompleted = 'Sudah Siap😉✅'
-                        } else {
-                            statCompleted = 'Belum Siap💀❌'
-                        }
-                        return (
-                            <li key={item.id}>
-                                <div className="left">
-                                    <span><button onClick={() => props.setCompleted(item.id)}>{statCompleted}</button></span>
-                                </div>
-                                <div className="center">
-                                    <p>{item.task + ` ` + item.id}</p>
-                                </div>
-                                <div className="right">
-                                    <ToDoButton id = {item.id} hapusId = {props.hapusId}/>
-                                </div>
-                            </li>
-                        )
-                    })}
-                </ul>
-            </div>
-        </div>
+        <div className="task-body">
+            <ul className='task-frame'>
+
+                {props.tasks.map((item) => {
+                    let classCompleted = ''
+
+                    if (item.completed) {
+                        classCompleted = 'active';
+                    } else {
+                        classCompleted = '';
+                    }
+                    return (
+
+                        <li key={item.id} className = {'list '+ classCompleted}>
+                            <div className="left">
+                                <button className={'button '+ classCompleted} onClick={() => props.setCompleted(item.id)}>
+                                    <div className={'circle '+ classCompleted}></div>
+                                </button>
+                            </div>
+                            <div className="center">
+                                <p>{item.task}</p>
+                            </div>
+                            <div className="right">
+                                <ToDoButton id={item.id} hapusId={props.hapusId} />
+                            </div>
+                        </li>
+            )
+                })}
+
+        </ul>
+        </div >
     )
 }
 

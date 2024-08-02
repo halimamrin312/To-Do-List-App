@@ -2,7 +2,7 @@ function ToDoButton(props) {
     let id = props.id;
     return (
         <>
-            <span><button onClick={()=>props.hapusId(id)}>🚽</button></span>
+            <span><button onClick={()=>props.hapusId(id)}>DELETE</button></span>
         </>
     )
 }
